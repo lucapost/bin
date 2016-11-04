@@ -1,3 +1,10 @@
 #!/bin/bash
 
-openssl smime -decrypt -verify -inform DER -in $1 -noverify -out $2
+rename "s/\s+/_/g" *
+
+for file in *.P7M
+do 
+	output=`basename $file .P7M`
+	openssl smime -decrypt -in $file -inform DER -verify -noverify -out $output
+done
+
